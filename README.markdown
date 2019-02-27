@@ -2,11 +2,11 @@
 
  ## Lagom with MySql CRUD application
 
- ### Clone Project
+ ### Clone Project and Run
  
  `sbt new knoldus/lagom-scala-mysql-es.g8`
  
- `cd lagom-mysql-poc`
+ `cd lagom-scala-mysql-es`
  
  To start the Application first we need to make sure we are exporting SQL username and password correctly.
  
