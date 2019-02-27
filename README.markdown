@@ -1,4 +1,4 @@
- A [Giter8][g8] template for CRUD application with MySQL in Lagom framework.
+ A Giter8 template for CRUD application with MySQL in Lagom framework.
 
  ## Lagom with MySql CRUD application
 
