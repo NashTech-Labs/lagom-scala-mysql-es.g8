@@ -1,0 +1,1 @@
+# lagom-scala-mysql-es
