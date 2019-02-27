@@ -2,7 +2,7 @@
 
  ## Lagom with MySql CRUD application
 
- Clone Project
+ ### Clone Project
  
  `sbt new knoldus/lagom-scala-mysql-es.g8`
  
