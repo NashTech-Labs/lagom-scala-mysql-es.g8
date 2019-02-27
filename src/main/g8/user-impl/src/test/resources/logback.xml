@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="PROJECT" value="lagom-mysql-poc"/>
+    <property name="SERVICE" value="user"/>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date{HH:mm:ss} %-5level %logger{0} {%class %method} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="file" class="ch.qos.logback.core.FileAppender">
+        <file>${user.home}/logs/user.log</file>
+        <encoder>
+            <pattern>%date{HH:mm:ss} %-5level %logger{0} {%class %method} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <variable name="ROOT_LOG_LEVEL" value="${ROOT_LOG_LEVEL:-OFF}"/>
+
+    <variable name="ERROR_LOG_LEVEL" value="${ERROR_LOG_LEVEL:-ERROR}"/>
+
+    <!-- Set logging for all services to INFO -->
+    <logger name="com.knoldus.user.impl" level="${ROOT_LOG_LEVEL}"/>
+
+    <!-- Set logging for all Play library classes to WARN -->
+    <logger name="play" level="${ERROR_LOG_LEVEL}"/>
+    <!-- Set logging for all Akka library classes to WARN -->
+    <logger name="akka" level="${ERROR_LOG_LEVEL}"/>
+    <!-- Set logging for all Kafka library classes to WARN -->
+    <logger name="org.apache.kafka" level="${ERROR_LOG_LEVEL}"/>
+    <!-- Set logging for all Lagom library classes to WARN -->
+    <logger name="com.lightbend.lagom" level="${ERROR_LOG_LEVEL}"/>
+    <!-- Cassandra and the datasta driver are used by the Lagom event sourcing modules -->
+    <logger name="com.datastax.driver" level="${ERROR_LOG_LEVEL}"/>
+    <logger name="com.mysql.cj.jdbc.Driver" level="${ERROR_LOG_LEVEL}"/>
+    <!-- Turning off connection error logging to avoid noise when services are forcely stopped -->
+    <logger name="com.datastax.driver.core.ControlConnection" level="${ERROR_LOG_LEVEL}"/>
+    <logger name="slick.util.SlickLogger" level="${ERROR_LOG_LEVEL}"/>
+    <logger name="play.api.db.HikariCPConnectionPool" level="${ERROR_LOG_LEVEL}"/>
+    <logger name="com.zaxxer.hikari.HikariDataSource" level="${ERROR_LOG_LEVEL}"/>
+
+    <root level="${ROOT_LOG_LEVEL}">
+        <appender-ref ref="console"/>
+        <appender-ref ref="file"/>
+    </root>
+
+</configuration>
