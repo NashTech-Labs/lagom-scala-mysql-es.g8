@@ -50,7 +50,7 @@ class UserRepositoryImpl(session: JdbcSession)(implicit ec: ExecutionContext) ex
 
   override def getUserById(orgId: Int): Future[Option[UserDetails]] = {
     session.withConnection { connection =>
-      val statement = connection.prepareStatement(s"SELECT * FROM user WHERE orgId = $orgId").executeQuery()
+      val statement = connection.prepareStatement("SELECT * FROM user WHERE orgId = " + orgId).executeQuery()
       if (statement.next() && orgId.equals(statement.getInt(1))) {
         Some(UserDetails(statement.getInt(1), statement.getString(2),
           statement.getString(3)))
