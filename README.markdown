@@ -17,7 +17,7 @@
  ### Start MySQL Server:
  `mysql -u root -p`
  
- Remember to create a Database in `userdb` MySQL .
+ Remember to create a Database `userdb` in MySQL .
  If you want to update the database name then, change value in application.conf `{db.default.url}`
  
  ### Run Application
