@@ -13,6 +13,7 @@ node_modules/
 *.class
 coverage.html
 style.html
+.travis.yml
 
 # Package Files #
 *.jar
