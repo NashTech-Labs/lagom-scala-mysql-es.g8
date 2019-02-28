@@ -16,9 +16,9 @@ class UserServiceImpl(esService: UserEsService)(implicit ec: ExecutionContext) e
 
   override def addUser(): ServiceCall[UserDetails, UserResponse] = {
     request =>
-      logger.info(s"Request received to add user details for ID: ${request.orgId}")
+      logger.info("Request received to add user details for ID: " + request.orgId)
       esService.getUserDetails(request.orgId).flatMap {
-        case Some(_) => logger.error(s"Failed to add details as user already exists: ${request.orgId}")
+        case Some(_) => logger.error("Failed to add details as user already exists: " + request.orgId)
           Future.successful(UserResponse(UserAlreadyExists))
         case None => esService.processUserAdded(request)
       }
@@ -26,10 +26,10 @@ class UserServiceImpl(esService: UserEsService)(implicit ec: ExecutionContext) e
 
   override def updateUser(): ServiceCall[UpdateRequest, UserResponse] = {
     request =>
-      logger.info(s"Request received to update user name for ID: ${request.orgId}")
+      logger.info("Request received to update user name for ID: " + request.orgId)
       esService.getUserDetails(request.orgId).flatMap {
         case Some(_) => esService.processUserUpdated(request)
-        case None => logger.error(s"Failed to update user name for invalid ID: ${request.orgId}")
+        case None => logger.error("Failed to update user name for invalid ID: " + request.orgId)
           Future.successful(UserResponse(InvalidUser))
       }
   }
@@ -37,20 +37,20 @@ class UserServiceImpl(esService: UserEsService)(implicit ec: ExecutionContext) e
 
   override def getUser(orgId: Int): ServiceCall[NotUsed, GetUserResponse] = {
     _ =>
-      logger.info(s"Request received to get user details for ID: $orgId")
+      logger.info("Request received to get user details for ID: " + orgId)
       esService.getUserDetails(orgId).map {
         case Some(user) => GetUserResponse(Some(user), None)
-        case None => logger.error(s"Failed to get user details for invalid ID: $orgId")
+        case None => logger.error("Failed to get user details for invalid ID: " + orgId)
           GetUserResponse(None, Some(InvalidUser))
       }
   }
 
   override def deleteUser(orgId: Int): ServiceCall[NotUsed, UserResponse] = {
     _ =>
-      logger.info(s"Request received to delete user for ID: $orgId")
+      logger.info("Request received to delete user for ID: " + orgId)
       esService.getUserDetails(orgId).flatMap {
         case Some(user) => esService.processUserDeleted(user.orgId)
-        case None => logger.error(s"Failed to delete user for invalid ID: $orgId")
+        case None => logger.error("Failed to delete user for invalid ID: " + orgId)
           Future.successful(UserResponse(InvalidUser))
       }
   }
